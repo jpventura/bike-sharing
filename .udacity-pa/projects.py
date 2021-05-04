@@ -2,9 +2,10 @@ import argparse
 import subprocess as sp
 from udacity_pa import udacity
 
+
 nanodegree = 'nd101'
 projects = ['first_neural_network']
-filenames = ['my_answers.py', 'Predicting_bike_sharing_data.ipynb']
+filenames = ['src/models/train_model.py', 'Predicting_bike_sharing_data.ipynb']
 
 def submit(args):
 
