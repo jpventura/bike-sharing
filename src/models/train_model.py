@@ -34,14 +34,21 @@ class NeuralNetwork(object):
         
         '''
         n_records = features.shape[0]
+        
         delta_weights_i_h = np.zeros(self.weights_input_to_hidden.shape)
         delta_weights_h_o = np.zeros(self.weights_hidden_to_output.shape)
+        
         for X, y in zip(features, targets):
-            
-            final_outputs, hidden_outputs = self.forward_pass_train(X)  # Implement the forward pass function below
-            # Implement the backproagation function below
-            delta_weights_i_h, delta_weights_h_o = self.backpropagation(final_outputs, hidden_outputs, X, y, 
-                                                                        delta_weights_i_h, delta_weights_h_o)
+            final_outputs, hidden_outputs = self.forward_pass_train(X)
+            delta_weights_i_h, delta_weights_h_o = self.backpropagation(
+                final_outputs,
+                hidden_outputs,
+                X,
+                y, 
+                delta_weights_i_h,
+                delta_weights_h_o
+            )
+        
         self.update_weights(delta_weights_i_h, delta_weights_h_o, n_records)
 
 
@@ -91,10 +98,9 @@ class NeuralNetwork(object):
             n_records: number of records
 
         '''
-        
-        # TODO: Update the weights with gradient descent step
-        self.weights_hidden_to_output += None # update hidden-to-output weights with gradient descent step
-        self.weights_input_to_hidden += None # update input-to-hidden weights with gradient descent step
+        self.weights_hidden_to_output += self.lr * delta_weights_h_o / n_records
+        self.weights_input_to_hidden += self.lr * delta_weights_i_h / n_records
+
 
     def run(self, features):
         ''' Run a forward pass through the network with input features 
@@ -104,14 +110,8 @@ class NeuralNetwork(object):
             features: 1D array of feature values
         '''
         
-        #### Implement the forward pass here ####
-        # TODO: Hidden layer - replace these values with the appropriate calculations.
-        hidden_inputs = None # signals into hidden layer
-        hidden_outputs = None # signals from hidden layer
-        
-        # TODO: Output layer - Replace these values with the appropriate calculations.
-        final_inputs = None # signals into final output layer
-        final_outputs = None # signals from final output layer 
+        hidden_inputs = features
+        final_outputs = self.forward_pass_train(hidden_inputs)[0]
         
         return final_outputs
 
