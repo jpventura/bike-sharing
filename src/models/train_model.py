@@ -1,6 +1,10 @@
 import numpy as np
 
 
+def sigmoid(x):
+    return 1/(np.exp(-1*x) + 1)
+
+
 class NeuralNetwork(object):
     def __init__(self, input_nodes, hidden_nodes, output_nodes, learning_rate):
         # Set number of nodes in input, hidden and output layers.
@@ -16,19 +20,7 @@ class NeuralNetwork(object):
                                        (self.hidden_nodes, self.output_nodes))
         self.lr = learning_rate
         
-        #### TODO: Set self.activation_function to your implemented sigmoid function ####
-        #
-        # Note: in Python, you can define a function with a lambda expression,
-        # as shown below.
-        self.activation_function = lambda x : 0  # Replace 0 with your sigmoid calculation.
-        
-        ### If the lambda code above is not something you're familiar with,
-        # You can uncomment out the following three lines and put your 
-        # implementation there instead.
-        #
-        #def sigmoid(x):
-        #    return 0  # Replace 0 with your sigmoid calculation here
-        #self.activation_function = sigmoid
+        self.activation_function = sigmoid
                     
 
     def train(self, features, targets):
